@@ -13,12 +13,12 @@
 }
 
 window#waybar {
-    background: #0F0F17; 
+    border-radius: 10px;
+    background: rgba(235, 232, 228, 0.6); 
   /*  border-radius: 15px; */
  /*  border: 2px solid #124323; */
 /* border: 0px solid #A1BDCE; */
- border: 3px solid rgba(255, 255, 255, 0.1);
- border-radius: 10px;
+/* border: 3px solid rgba(255, 255, 255, 0.1); */
 }
 
 
@@ -33,7 +33,7 @@ tooltip {
     }
 #workspaces{
 background: rgba(23, 23, 23, 0.0);
-    color: #888789;
+    color: #4F9CB8;
     box-shadow: none;
 	text-shadow: none;
     border-radius: 9px;
@@ -46,7 +46,7 @@ background: rgba(23, 23, 23, 0.0);
 
 #workspaces button {
 background: rgba(23, 23, 23, 0.0);
-    color: #A1BDCE;
+    color: #2683b5;
     box-shadow: none;
 	text-shadow: none;
     border-radius: 9px;
@@ -71,7 +71,7 @@ background: rgba(23, 23, 23, 0.0);
 
 #workspaces button:hover {
     background: none;
-    color: #72D792;
+    color: #383e3f;
     animation: ws_hover 20s ease-in-out 1;
     transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.682);
 }
@@ -188,7 +188,7 @@ background: @bar-bg;
 
 }
 #clock{
-    color: #A1BDCE;
+    color: #383e3f;
     font-size: 15px;
     font-weight: 900;
     font-family: "JetBrains Mono Nerd Font";
@@ -233,7 +233,7 @@ font-size: 22px;
 color: #E4C9AF;
 }
 #mpris{
-color: white;
+color: #383e3f;
 animation: repeat;
 	animation-name: blink;
 	animation-duration: 3s;
@@ -272,7 +272,7 @@ margin: 0px 0px 0px 0px;
 #custom-wallchange,
 #custom-wbar,
 #window{
-color: #A1BDCE;
+color: #383e3f;
 font-family: "Martian Mono";
 }
 #custom-l_end,
