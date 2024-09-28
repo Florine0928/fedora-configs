@@ -13,7 +13,7 @@
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](https://raw.githubusercontent.com/Florine0928/fedora-configs/refs/heads/home/screenshot.png)
 
 
 ## Acknowledgements
