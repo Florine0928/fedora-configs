@@ -14,7 +14,7 @@
 
 window#waybar {
     border-radius: 10px;
-    background: rgba(235, 232, 228, 0.6); 
+    background: #000000;
   /*  border-radius: 15px; */
  /*  border: 2px solid #124323; */
 /* border: 0px solid #A1BDCE; */
@@ -24,7 +24,7 @@ window#waybar {
 
 tooltip {
         background: #171717;
-        color: #A1BDCE;
+        color: #ffffff;
         font-size: 13px;
         border-radius: 7px;
        border: 2px solid #101a24;
@@ -33,7 +33,7 @@ tooltip {
     }
 #workspaces{
 background: rgba(23, 23, 23, 0.0);
-    color: #4F9CB8;
+    color: #ffffff;
     box-shadow: none;
 	text-shadow: none;
     border-radius: 9px;
@@ -62,7 +62,7 @@ background: rgba(23, 23, 23, 0.0);
 
  
   /* background-image: url("/home/anik/Documents/bar1.png");*/
-    color: #A1BDCE;   
+    color: #ffffff;   
     transition: all 0.3s ease;
     padding-left: 4px;
     padding-right: 4px;
@@ -71,7 +71,7 @@ background: rgba(23, 23, 23, 0.0);
 
 #workspaces button:hover {
     background: none;
-    color: #383e3f;
+    color: #ffffff;
     animation: ws_hover 20s ease-in-out 1;
     transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.682);
 }
@@ -188,7 +188,7 @@ background: @bar-bg;
 
 }
 #clock{
-    color: #383e3f;
+    color: #ffffff;
     font-size: 15px;
     font-weight: 900;
     font-family: "JetBrains Mono Nerd Font";
@@ -233,10 +233,10 @@ font-size: 22px;
 color: #E4C9AF;
 }
 #mpris{
-color: #383e3f;
+color: #ffffff;
 animation: repeat;
 	animation-name: blink;
-	animation-duration: 3s;
+	animation-duration: 1s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
@@ -272,7 +272,7 @@ margin: 0px 0px 0px 0px;
 #custom-wallchange,
 #custom-wbar,
 #window{
-color: #383e3f;
+color: #ffffff;
 font-family: "Martian Mono";
 }
 #custom-l_end,
