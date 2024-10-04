@@ -3,7 +3,7 @@ highlight Normal ctermbg=none guibg=none
 
 " Set basic colorscheme
 set background=dark
-colorscheme 001-kaolin-breeze
+colorscheme 002-black-metal
 
 " Define colors manually
 highlight Normal      ctermfg=black
