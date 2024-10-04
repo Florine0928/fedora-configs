@@ -13,7 +13,7 @@
 
 ## Screenshots
 
-![App Screenshot](https://raw.githubusercontent.com/Florine0928/fedora-configs/refs/heads/home/screenshot.png)
+![App Screenshot](https://raw.githubusercontent.com/Florine0928/fedora-configs/refs/heads/home/prntscrn.png)
 
 
 ## Acknowledgements
