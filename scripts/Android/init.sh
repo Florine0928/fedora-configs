@@ -19,10 +19,13 @@
 # Build Environment Variables                                          #
 ########################################################################
 
+# Kernel Name
+export IMAGE_NAME="E9K"
+
 # Exynos9810 is ARM64 or less-know as aarch64
 export ARCH=arm64
 
-# aarch64 GCC Cross Compiler (Should be GCC 14 or later but U can try with GCC 4.9 too)
+# aarch64 GCC Cross Compiler (Should be GCC 14 or later but U can try with GCC 4.9 too) 
 export CROSS_COMPILE=aarch64-linux-gnu-
 
 # Some Samsung Shenanigans
@@ -30,18 +33,48 @@ export ANDROID_MAJOR_VERSION=q
 
 # Defconfigs
 export star="exynos9810-starlte_defconfig"   # Samsung S9
+export starshort="starlte"
 export star2="exynos9810-star2lte_defconfig" # Samsung S9 Plus
+export star2short="star2lte"
 export crown="exynos9810-crownlte_defconfig" # Samsung Note9
+export crownshort="crownlte"
+
+# DTS Directory
+export DTSD=arch/$ARCH/boot/dts/exynos
 
 # Defaults (Device and Build Mode)
 export DEVICE=$star # Starlte Aka S9
 export MODE="dirty" # Dirty Build
 
+# Main Directory
+export DIR=$(pwd)
+
+# Out Directory - Used for Buildsystem and such
+export OUT=$DIR/E9K-Tools/Out
+
+# Product Directory - Used for Buildsystem and such
+export PRODUCT=$DIR/E9K-Tools/Product
+
+# Presistant A.I.K Location
+export AIK=$DIR/E9K-Tools/A.I.K
+
+# Main Ramdisk Location
+export RAMDISK=$DIR/E9K-Tools/Ramdisk
+
+# Compiled image name and location (Image/zImage)
+export KERNEL=$DIR/arch/$ARCH/boot/Image.gz
+
+# Compiled DTB - Default Starlte
+export CDTB="arch/arm64/boot/dts/exynos/exynos9810-starlte_eur_open_26.dtb"
+
+# defconfig dir
+export DEFCONFIG=$DIR/arch/$ARCH/configs
+
 ########################################################################
 #                                                                      #
 ########################################################################
 
-# Function to display usage
+# ExremeXT lurks in this script
 usage() {
     echo "Usage: $0 [-d <platform>] [-m <clean/dirty>]"
     echo "Example Usage: $0 -d S9 -m dirty"
@@ -65,12 +98,15 @@ while getopts "m:b:h" opt; do
             if [[ "$arg" == "S9" ]]; then
                 echo "Building kernel for: $arg"
                 export DEVICE=$star
+                export CDTB="arch/arm64/boot/dts/exynos/exynos9810-starlte_eur_open_26.dtb"
             elif [[ "$arg" == "S9+" ]]; then
                 echo "Building kernel for: $arg"
                 export DEVICE=$star2
+                export CDTB="arch/arm64/boot/dts/exynos/exynos9810-star2lte_eur_open_26.dtb"
             elif [[ "$arg" == "N9" ]]; then
                 echo "Building kernel for: $arg"
                 export DEVICE=$crown
+                export CDTB="arch/arm64/boot/dts/exynos/exynos9810-crownlte_eur_open_26.dtb"
             else            
                 echo "Invalid argument for -b: Defaulting to S9"
             fi
@@ -103,6 +139,23 @@ while getopts "m:b:h" opt; do
 done
 
 ########################################################################
+#                                                                      #
+########################################################################
+
+# Shift arguments so that $@ contains remaining arguments
+shift $((OPTIND -1))
+
+# Check if any arguments are left
+if [ $# -ne 0 ]; then
+    echo "Invalid option: $@"
+    usage
+fi
+
+if [ "$OPTIND" -eq 1 ]; then
+    usage
+fi
+
+########################################################################
 # Functions for Building the Kernel                                    # 
 ########################################################################
 
@@ -118,28 +171,51 @@ build() {
     make -j$(nproc)
     else
     # If not in dirty mode then clear workdir and make kernel
-    make clean
+    make clean && make mrproper
     make -j$(nproc)
     fi
 }
 
 ########################################################################
-#                                                                      #
+# Function for creating boot.img --- Credits to Apollo for Function    #
 ########################################################################
 
-# Shift arguments so that $@ contains remaining arguments
-shift $((OPTIND -1))
-
-# Check if any arguments are left
-if [ $# -ne 0 ]; then
-    echo "Invalid option: $@"
-    usage
-fi
-
-if [ "$OPTIND" -eq 1 ]; then
-    echo "No options provided. Please provide options."
-    usage
-fi
+# Ramdisk Function
+PACK_BOOT_IMG()
+{
+	echo "----------------------------------------------"
+	echo " "
+	echo "Building Boot.img for $DEVICE"
+	# Copy Ramdisk
+	cp -rf $RAMDISK/* $AIK
+	# Move Compiled kernel and dtb to A.I.K Folder
+	mv $KERNEL $AIK/split_img/boot.img-zImage
+	mv $CDTB $AIK/split_img/boot.img-dtb
+	# Create boot.img
+	$AIK/repackimg.sh
+	if [ ! -e $AIK/image-new.img ]; then
+        exit 0;
+        echo "Boot Image Failed to pack"
+        echo " Abort "
+	fi
+	# Remove red warning at boot
+	echo -n "SEANDROIDENFORCE" >> $AIK/image-new.img
+	# Copy boot.img to Production folder
+	if [ ! -e $PRODUCT ]; then
+        mkdir $PRODUCT
+	fi
+	cp $AIK/image-new.img $PRODUCT/$IMAGE_NAME.img
+	# Move boot.img to out dir
+	if [ ! -e $OUT ]; then
+        mkdir $OUT
+	fi
+	mv $AIK/image-new.img $OUT/$IMAGE_NAME.img
+	du -k "$OUT/$IMAGE_NAME.img" | cut -f1 >sizkT
+	sizkT=$(head -n 1 sizkT)
+	rm -rf sizkT
+	echo " "
+	$AIK/cleanup.sh
+}
 
 ########################################################################
 # Initialize Kernel Building                                           #
@@ -151,8 +227,6 @@ defconfig
 # Make Kernel
 build
 
-########################################################################
-#                                                                      #
-########################################################################
-
+# Creates boot.img which will appear in E9K-Tools/Product folder
+PACK_BOOT_IMG
 
