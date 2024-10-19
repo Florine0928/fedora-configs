@@ -7,7 +7,7 @@
 
 - Hyprland WM
 - Waybar
-- Light Mode
+- Dark Mode
 
 
 
