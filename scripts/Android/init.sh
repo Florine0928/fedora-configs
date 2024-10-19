@@ -79,6 +79,7 @@ while getopts "em:b:t:h" opt; do
 
             if [[ "$arg2" == "clean" ]]; then
                 unset MODE
+                unset CCACHE
                 # This is used for when we build kernel
             elif [[ "$arg2" == "dirty" ]]; then
                 export MODE="dirty"
@@ -86,6 +87,7 @@ while getopts "em:b:t:h" opt; do
             else            
                 echo "invalid argument for -m: defaulting to dirty"
                 export MODE="dirty"
+                export $CCACHE="ccache"
             fi
             ;;
         h)
@@ -141,7 +143,7 @@ build() {
 }
 
 build_clean() {
-    make clean && make mrproper
+    make clean && make mrproper && ccache -C
 }
 
 ########################################################################

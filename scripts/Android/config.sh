@@ -38,7 +38,7 @@ export TC_BB="aarch64-linux-gnu-" # Toolchain GCC Binary
 ###########################################################################################################################
 
 # Toolchain Placeholder
-export TC="aarch64-linux-gnu-"
+export TC="ccache aarch64-linux-gnu-"
 
 # Toolchain Directory
 export TC_DIR="Toolchain"
@@ -46,13 +46,16 @@ export TC_DIR="Toolchain"
 # CC Linker
 export LD="ld.gold" # ld - GNU Linker | ld.gold - Alternative to ld made by GNU | ld.lld - LLVM Linker
 
+# CCACHE
+export CCACHE="ccache"
+
 # Exynos9810 (ORRRR whatever the fuck is the SoC the end-user is building for..) is ARM64 or less-know as aarch64
 export ARCH=arm64
 export SUBARCH=arm64
 
 # aarch64 GCC Cross Compiler (Should be GCC 14 or later but U can try with GCC 4.9 too) 
 # Some compilers such as EvaGCC mentioned in Toolchain list have different GCC Binary name, for example EvaGCC is "aarch64-elf-"
-export CROSS_COMPILE=$TC
+export CROSS_COMPILE="$CCACHE $TC"
 
 # Some Samsung Shenanigans
 export ANDROID_MAJOR_VERSION=q
