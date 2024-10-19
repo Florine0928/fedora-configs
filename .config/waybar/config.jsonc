@@ -10,7 +10,7 @@
  "margin-right": 6,
  "margin-top": 6,
  "margin-bottom": 0,
-    "exclusive": false,
+    "exclusive": true,
     "passthrough": false,
     "gtk-layer-shell": true,
     "reload_style_on_change": true,
