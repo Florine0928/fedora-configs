@@ -33,7 +33,7 @@ tooltip {
     }
 #workspaces{
 background: rgba(23, 23, 23, 0.0);
-    color: #ffffff;
+    color: #000;
     box-shadow: none;
 	text-shadow: none;
     border-radius: 9px;
@@ -46,7 +46,7 @@ background: rgba(23, 23, 23, 0.0);
 
 #workspaces button {
 background: rgba(23, 23, 23, 0.0);
-    color: #2683b5;
+    color: #78342d;
     box-shadow: none;
 	text-shadow: none;
     border-radius: 9px;
@@ -62,7 +62,7 @@ background: rgba(23, 23, 23, 0.0);
 
  
   /* background-image: url("/home/anik/Documents/bar1.png");*/
-    color: #ffffff;   
+    color: #d9c28c;   
     transition: all 0.3s ease;
     padding-left: 4px;
     padding-right: 4px;
