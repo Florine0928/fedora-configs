@@ -43,6 +43,9 @@ export TC="aarch64-linux-gnu-"
 # Toolchain Directory
 export TC_DIR="Toolchain"
 
+# CC Linker
+export LD="ld.gold" # ld - GNU Linker | ld.gold - Alternative to ld made by GNU | ld.lld - LLVM Linker
+
 # Exynos9810 (ORRRR whatever the fuck is the SoC the end-user is building for..) is ARM64 or less-know as aarch64
 export ARCH=arm64
 export SUBARCH=arm64
